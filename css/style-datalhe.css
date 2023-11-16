@@ -1,0 +1,48 @@
+#product-details img {
+    max-width: 300px; /* Define a largura máxima da imagem como 100% da largura da div */
+    height: auto;/* Garante que a altura seja ajustada automaticamente para manter a proporção original */
+}
+#product-details {
+border: #615454 solid;
+  padding: 10px;
+  margin: 10px;
+  width: 50%;
+
+}
+.product-title {
+  color: blue;
+  font-size: 1.5em;
+}
+
+.product-image {
+  width: 200px;
+  height: 200px;
+}
+
+.product-description {
+  font-style: italic;
+}
+
+.product-price {
+  color: green;
+  font-weight: bold;
+}
+
+#container {
+  display: flex;
+}
+
+#details-product,
+#product-details {
+  flex: 1;
+  margin: 10px; /* Ajuste as margens conforme necessário */
+  text-align: center;
+}
+#details-product p{
+  padding: 0 150px;
+  margin-bottom: 50px;
+}
+
+footer {
+  position: fixed;
+}
