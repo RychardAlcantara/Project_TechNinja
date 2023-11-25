@@ -99,9 +99,7 @@ class PayController{
         $retorno = curl_exec($curl);
         curl_close($curl);
 
-        var_dump($retorno);
-
-        $response = json_decode($retorno, true);
+       $response = json_decode($retorno, true);
 
         // Check if the payment status is PAID
         if(isset($response['charges'][0]['status']) && $response['charges'][0]['status'] == 'PAID') {

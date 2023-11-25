@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 
     <header class="custom-header">
-        <img src="/img/Tech Ninja Store.png" class="header-logo">
+        <img src="/img/TECHNINJA.png" class="header-logo">
     </header>
 
     <div>

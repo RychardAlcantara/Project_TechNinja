@@ -3,11 +3,11 @@ class KeyController{
 
     public static function getPublicKey()
     {
-        $data['type'] = "card";
         $curl = curl_init('https://sandbox.api.pagseguro.com/public-keys/');
+        $data['type'] = "card";
         curl_setopt($curl,CURLOPT_HTTPHEADER,Array(
             'Content-Type: application/json',
-            'Authorization: PUB42777EA9A95B462B93829462D0E63196'
+            'Authorization: 86D9A16E1C1E441B87DB0BCD0AE3574F'
         ));
         curl_setopt($curl,CURLOPT_POST,true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);

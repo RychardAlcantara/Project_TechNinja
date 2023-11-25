@@ -63,19 +63,17 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://kit.fontawesome.com/56db5224e6.js" crossorigin="anonymous"></script>
     <script src="../script/script.js"></script>
-    <link rel="icon" href="img/Tech Ninja Store.png">
+    <link rel="icon" href="/img/TECHNINJA.png">
     <title>Tech | Ninja</title>
 </head>
 
 <body>
 
     <header class="custom-header">
-        <img src="/img/Tech Ninja Store.png" class="header-logo">
-        <form class="search-form" action="">
-            <input type="text" name="search" placeholder="Pesquisar...">
-        </form>
+
+        <img src="/img/TECHNINJA.png" class="header-logo">
+
         <div class="user-cart">
-            <i class="fa-solid fa-user"></i>
             <div class="user">
                 <?php
                 if (isset($_SESSION['id'])) {
@@ -84,8 +82,8 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                     echo "<p><a href='logout.php'>Sair</a></p>";
                 } else {
                     // Se o usuário não estiver logado, exiba a opção de login e cadastro
-                    echo "Faça <a href='#' onclick='document.getElementById(\"id01\").style.display=\"block\"'>LOGIN</a> ou<br/> 
-                    crie seu <a href='#' onclick='document.getElementById(\"id02\").style.display=\"block\"'>CADASTRO</a>";
+                    echo "<button class='teste' onclick='document.getElementById(\"id01\").style.display=\"block\"'> LOGIN</button> 
+                    <button onclick='document.getElementById(\"id02\").style.display=\"block\"'> CADASTRO</button>";
                 }
                 ?>
             </div>
@@ -95,7 +93,20 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                 <div class="cart-counter" id="contador-carrinho">0</div>
             </div>
         </div>
+
+
     </header>
+    <div class="custom-header-2">
+        <a href="">
+            <h3>HOME</h3>
+        </a>
+        <a href="">
+            <h3>PRODUTOS</h3>
+        </a>
+        <a href="">
+            <h3>SUPORTE</h3>
+        </a>
+    </div>
 
     <main>
         <div class="banner">
@@ -176,7 +187,6 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                     margin: 5% auto;
                     padding: 20px;
                     border: 1px solid #888;
-                    width: 30%;
                 }
 
                 /* Estilos do botão de fechar */
@@ -214,16 +224,44 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                 }
 
                 #id01 button {
-                        background-color: #4CAF50;
-                        color: white;
-                        padding: 10px;
-                        border: none;
-                        cursor: pointer;
-                        width: 100%;
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                    cursor: pointer;
+                    width: 100%;
                 }
 
                 #id01 button:hover {
                     background-color: #45a049;
+                }
+
+                #modal {
+                    display: none;
+                    text-align: center;
+                    /* Inicia oculto */
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                    z-index: 1000;
+                }
+
+                #modal-content {
+                    text-align: center;
+                }
+
+                #fechar-modal {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    font-size: 20px;
+                    color: #555;
                 }
             </style>
 
@@ -274,20 +312,13 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                             <button type="submit" name="submit">Cadastrar</button>
                         </div>
                     </form>
-                    <!-- Modal de sucesso -->
-                    <div id="modal" class="custom-success-modal" style="display: none;">
-                        <div id="modal-content">
-                            <span id="fechar-modal" onclick="fecharModal()">&times;</span>
-                            <p>Usuário inserido com sucesso!</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-         document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Se o modal estiver configurado para ser exibido, mostre-o
             <?php
             if (isset($_GET['exibirModal']) && $_GET['exibirModal'] === 'true') {
@@ -335,14 +366,38 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                 window.location.href = 'formCard.php';
             }
         });
+
+        function exibirModalSucesso() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('id02').style.display = 'none'; // Fechar modal de cadastro
+            // Aqui você pode adicionar lógica adicional, como limpar o formulário, etc.
+        }
+
+        function fecharModalSucesso() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function fecharModalCadastro() {
+            document.getElementById('id02').style.display = 'none';
+        }
     </script>
     <footer>
         <div>
-            <p>&copy; 2023 Tech Ninja. Todos os direitos reservados.</p>
-        </div>
-        <div>
-            <a href="#">Política de Privacidade</a> |
-            <a href="#">Termos de Serviço</a>
+            <div>
+                <i class='fab fa-instagram' style='font-size:48px;'></i>
+                <i class='fab fa-facebook' style='font-size:48px;'></i>
+                <i class='fab fa-twitter' style='font-size:48px;'></i>
+            </div>
+
+            <div>
+                <a href="#">Política de Privacidade</a> |
+                <a href="#">Termos de Serviço</a>
+            </div>
+            <div>
+                <p> &copy; 2023 Tech Ninja. Todos os direitos reservados. </p>
+            </div>
+
+
         </div>
     </footer>
 </body>

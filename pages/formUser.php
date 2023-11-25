@@ -19,7 +19,7 @@ $objKey = new KeyController();
 
 <body>
     <header class="custom-header">
-        <img src="/img/Tech Ninja Store.png" class="header-logo">
+        <img src="/img/TECHNINJA.png" class="header-logo">
         <form class="search-form" action="">
             <input type="text" name="search" placeholder="Pesquisar...">
         </form>

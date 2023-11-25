@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Cria elementos HTML para as informações do produto
         const productTitle = document.createElement("h2");
-                productTitle.textContent = product.title;
+        productTitle.textContent = product.title;
  
 
         const productDescription = document.createElement("p");

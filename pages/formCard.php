@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <body>
     <header class="custom-header">
         <a href="index.php">
-            <img src="/img/Tech Ninja Store.png" class="header-logo" alt="Tech Ninja Store Logo">
+            <img src="/img/TECHNINJA.png" class="header-logo" alt="Tech Ninja Store Logo">
         </a>
         <form class="search-form" action="">
             <input type="text" name="search" placeholder="Pesquisar...">
