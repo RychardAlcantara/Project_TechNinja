@@ -1,48 +1,56 @@
 #product-details img {
-    max-width: 300px; /* Define a largura máxima da imagem como 100% da largura da div */
-    height: auto;/* Garante que a altura seja ajustada automaticamente para manter a proporção original */
+  max-width: 20%; /* Define a largura máxima da imagem como 100% da largura da div */
+  height: auto; /* Garante que a altura seja ajustada automaticamente para manter a proporção original */
 }
+
 #product-details {
-border: #615454 solid;
+  border: 1px solid #ccc;
   padding: 10px;
   margin: 10px;
-  width: 50%;
-
-}
-.product-title {
-  color: blue;
-  font-size: 1.5em;
+  width: 90%; /* Ajustado para ocupar 90% da largura da tela em dispositivos móveis e tablets */
+  border-radius: 10px;
+  box-sizing: border-box; /* Garante que as bordas e o preenchimento não afetem o tamanho total */
+  background-color: #fff;
 }
 
 .product-image {
-  width: 200px;
-  height: 200px;
-}
-
-.product-description {
-  font-style: italic;
-}
-
-.product-price {
-  color: green;
-  font-weight: bold;
+  width: 100%; /* Faz a imagem ocupar 100% da largura do contêiner */
+  height: auto;
+  max-width: 300px; /* Define uma largura máxima para a imagem */
 }
 
 #container {
   display: flex;
+  flex-direction: column; /* Muda a direção para coluna em dispositivos móveis e tablets */
+  align-items: center; /* Centraliza os elementos na tela */
 }
 
 #details-product,
 #product-details {
   flex: 1;
-  margin: 10px; /* Ajuste as margens conforme necessário */
+  margin: 10px;
   text-align: center;
-}
-#details-product p{
-  padding: 0 150px;
-  margin-bottom: 50px;
+  
 }
 
-footer {
-  position: fixed;
+#details-product p {
+  padding: 0 10px; /* Ajustado para uma margem menor em dispositivos móveis e tablets */
+  margin-bottom: 20px; /* Reduzido o espaçamento inferior */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Adicionando uma regra de mídia para dispositivos com largura máxima de 600 pixels (exemplo para tablets e dispositivos móveis) */
+@media only screen and (max-width: 600px) {
+  #product-details {
+      width: 100%; /* Ocupa 100% da largura em telas menores */
+  }
+
+  #details-product p {
+      padding: 0 5px; /* Ajustado para uma margem menor em telas menores */
+  }
 }

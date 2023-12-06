@@ -11,9 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(product => {
                 // Exibe as informações do produto na página
                 const productDetails = document.getElementById("product-details");
-
-                
-
                 const productImage = document.createElement("img");
                 productImage.src = product.image;
 
@@ -58,3 +55,5 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(error => console.log('error', error));
 
 });
+
+

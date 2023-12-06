@@ -94,13 +94,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </script>
 
-    <footer>
+<footer>
         <div>
-            <p>&copy; 2023 Tech Ninja. Todos os direitos reservados.</p>
-        </div>
-        <div>
-            <a href="#">Política de Privacidade</a> |
-            <a href="#">Termos de Serviço</a>
+            <div>
+                <i class='fab fa-instagram' style='font-size:48px;'></i>
+                <i class='fab fa-facebook' style='font-size:48px;'></i>
+                <i class='fab fa-twitter' style='font-size:48px;'></i>
+            </div>
+
+            <div>
+                <a href="#">Política de Privacidade</a> |
+                <a href="#">Termos de Serviço</a>
+            </div>
+            <div>
+                <p> &copy; 2023 Tech Ninja. Todos os direitos reservados. </p>
+            </div>
+
+
         </div>
     </footer>
 </body>

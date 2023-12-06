@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $updateStmt->execute();
 
-            echo '<div style="text-align: center;">';
+            echo '<div style="text-align: center; margin-top: 30px;">';
             echo '<i class="fas fa-check-circle" style="font-size:70px;color:green;"></i>';
             echo '<h1>Senha redefinida com sucesso</h1>';
             echo '<p>Volte para a tela de início e faça o login em nossa plataforma.</p>';

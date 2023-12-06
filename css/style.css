@@ -156,12 +156,6 @@ form.example input[type=text]:focus {
   color: #004AAD;
 } 
 
-.produtos-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);  /*Duas colunas por linha */
-  gap: 20px; /* Espaço entre os produtos */
-  margin: 150px;
-}
 
 .corpoProduto {
   border: 1px solid #ccc;
@@ -177,7 +171,7 @@ form.example input[type=text]:focus {
   vertical-align: top;
   width: 368px;
   border-radius: 10px;
-  box-shadow: 0 0 5px #000;
+  background-color: #fff;
 }
 
 .product h2 {
@@ -272,22 +266,22 @@ form.example input[type=text]:focus {
 footer {
   background-color: #004AAD;
   color: #fff;
- 
+  margin-top: auto;
 }
 
 footer div {
-  display: flex;
-  justify-content: space-between; /* Centraliza os elementos horizontalmente */
+  flex-direction: column; /* Modificado para coluna */
   align-items: center;
-  flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha, se necessário */
   text-align: center;
-  padding: 15px 350px 15px 350px;
-  width: 100%;
-
+  padding: 15px;
 }
 
 footer div p {
   text-align: center;
+}
+
+div i {
+  margin-right: 10px; /* Ajuste o valor conforme necessário */
 }
 
 footer a {
@@ -298,6 +292,13 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+
+/* Adiciona regras para telas menores */
+@media (max-width: 768px) {
+  footer div {
+    flex-direction: column;
+  }
 }
 
 /**************** Modal ****************/
@@ -359,6 +360,18 @@ form h1 {
   text-align: center;
 }
 
+#carrinho button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#carrinho button:hover {
+  background-color: #555;
+}
 
 
 #checkout {
@@ -406,4 +419,11 @@ input {
   background-color: #0056b3;
 }
 
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
 

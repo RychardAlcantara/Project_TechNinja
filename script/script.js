@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 productPrice.textContent = "Preço: R$ " + product.price;
 
                 const buyButton = document.createElement("button");
-                buyButton.textContent = "Comprar";
+                buyButton.textContent = "Adicionar ao Carrinho";
                 buyButton.className = "comprar";
                 buyButton.addEventListener("click", () => {
-                    adicionarAoCarrinho(product.title, product.price);
+                    adicionarAoCarrinho(product.title, product.price, product.image);
                 });
 
 
@@ -59,22 +59,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    window.adicionarAoCarrinho = function (nomeProduto, precoProduto) {
+    window.adicionarAoCarrinho = function (nomeProduto, precoProduto, imagemProduto) {
         const produtoExistente = carrinhoItens.find(item => item.nome === nomeProduto);
 
         if (produtoExistente) {
             produtoExistente.quantidade++;
             produtoExistente.precoTotal = produtoExistente.quantidade * precoProduto;
         } else {
-            carrinhoItens.push({ nome: nomeProduto, preco: precoProduto, quantidade: 1, precoTotal: precoProduto });
+            carrinhoItens.push({ nome: nomeProduto, preco: precoProduto, quantidade: 1, precoTotal: precoProduto, imagem: imagemProduto });
         }
         atualizarCarrinho();
+        exibirItensNoCarrinho();
         // Atualizar a variável $itemsInCart no PHP
         const itemsInCart = carrinhoItens.length;
         document.getElementById('contador-carrinho').innerText = itemsInCart;
 
+        sessionStorage.setItem('carrinhoItens', JSON.stringify(carrinhoItens));
     };
 
+    function exibirItensNoCarrinho() {
+        const carrinhoItensContainer = document.getElementById('carrinho-itens');
+        carrinhoItensContainer.innerHTML = ""; // Limpar os itens antigos
+    
+        carrinhoItens.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+            <img src="${item.imagem}" alt="${item.nome}" style="width: 50px; height: 50px; margin-right: 10px;">
+            ${item.nome} - Quantidade: ${item.quantidade} - Preço: R$ ${item.precoTotal}
+        `;
+            carrinhoItensContainer.appendChild(li);
+        });
+    };
     window.removerDoCarrinho = function (index) {
         carrinhoItens.splice(index, 1);
         atualizarCarrinho();

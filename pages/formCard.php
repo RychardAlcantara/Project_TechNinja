@@ -84,16 +84,13 @@ document.addEventListener("DOMContentLoaded", function () {
         <a href="index.php">
             <img src="/img/TECHNINJA.png" class="header-logo" alt="Tech Ninja Store Logo">
         </a>
-        <form class="search-form" action="">
-            <input type="text" name="search" placeholder="Pesquisar...">
-        </form>
+
         <div class="user-cart">
-            <i class="fa-solid fa-user"></i>
             <div class="user">
                 <?php
                 if (isset($_SESSION['id'])) {
                     // Se o usuário estiver logado, exiba a mensagem de boas-vindas e a opção de sair
-                    echo "Bem vindo ao Painel, " . $_SESSION['nome'] . ".";
+                    echo "<i class='fas fa-user-alt'></i><br><b> " . $_SESSION['nome'] . "</b>.";
                     echo "<p><a href='logout.php'>Sair</a></p>";
                 } else {
                     // Se o usuário não estiver logado, exiba a opção de login e cadastro
@@ -103,33 +100,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 ?>
             </div>
 
-            <div class="cart" id="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <div class="cart-counter" id="contador-carrinho">0</div>
-            </div>
         </div>
     </header>
 
-    <div>
-        <h1>Itens comprado</h1>
 
-    </div>
-    <div id="carrinho" class="w3-modal">
-        <div class="w3-modal-content w3-animate-zoom">
-            <span onclick="document.getElementById('carrinho').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <form action="" method="post">
-                <h2>Carrinho de Compras</h2>
-                <ul id="carrinho-itens">
-                </ul>
-            </form>
-        </div>
-    </div>
     <form action="/controller/checkout.php" method="post" name="formCard" id="formCard">
+        <div class="itens-comprado">
+
+        </div>
         <h2>Finalizar Compra</h2>
         <div id="checkout">
 
-            <input style="display: none;" type="text" name="publicKey" id="publicKey" value="<?php echo $objKey::getPublicKey(); ?>">
-            <input style="display: none;" type="text" name="encriptedCard" id="encriptedCard">
+            <input type="text" style="display: none;" name="publicKey" id="publicKey" value="<?php echo $objKey::getPublicKey(); ?>">
+            <input type="text" style="display: none;" name="encriptedCard" id="encriptedCard">
 
             <div class="frm-group">
                 <label for="nome">Nome:</label>
@@ -150,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="tel" id="telefone" name="telefone" maxlength="9" required>
             </div>
 
-            <div class="frm-group">
+            <div>
                 <label>CEP</label>
                 <input type="text" name="cep" />
             </div>
@@ -161,12 +144,12 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
 
             <div class="frm-group">
-                <label>numero</label>
+                <label>Número</label>
                 <input type="number" name="numero" />
             </div>
 
             <div class="frm-group">
-                <label>complemento</label>
+                <label>Complemento</label>
                 <input type="text" name="complement" />
             </div>
 
@@ -184,11 +167,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label>Estado</label>
                 <input type="text" name="estado" />
             </div>
-            <input type="text" class="form-control" name="cardNumber" id="cardNumber" maxlength="16" placeholder="Número do Cartão">
-            <input type="text" class="form-control" name="cardHolder" id="cardHolder" placeholder="Nome no Cartão">
-            <input type="text" class="form-control" name="cardMonth" id="cardMonth" maxlength="2" placeholder="Mês de Validade do Cartão">
-            <input type="text" class="form-control" name="cardYear" id="cardYear" maxlength="4" placeholder="Ano do Cartão">
-            <input type="text" class="form-control" name="cardCvv" id="cardCvv" maxlength="4" placeholder="CVV do Cartão">
+
+            <div>
+                <h2>Dados do cartão</h2>
+            </div>
+            <div>
+                <input type="text" class="form-control" name="cardNumber" id="cardNumber" maxlength="16" placeholder="Número do Cartão">
+                <input type="text" class="form-control" name="cardHolder" id="cardHolder" placeholder="Nome no Cartão">
+                <input type="text" class="form-control" name="cardMonth" id="cardMonth" maxlength="2" placeholder="Mês de Validade do Cartão">
+                <input type="text" class="form-control" name="cardYear" id="cardYear" maxlength="4" placeholder="Ano do Cartão">
+                <input type="text" class="form-control" name="cardCvv" id="cardCvv" maxlength="4" placeholder="CVV do Cartão">
+            </div>
+
             <input type="submit" class="btn btn-primary" value="Pagar">
 
 
@@ -203,7 +193,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         .frm-group {
             width: 48%;
-            /* Ajuste a largura conforme necessário */
+            margin-bottom: 10px;
+        }
+
+
+        .form-control {
+            width: 100%;
             margin-bottom: 10px;
         }
 
@@ -214,15 +209,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         .frm-group input {
             width: 100%;
-            /* Ajuste a largura conforme necessário */
             display: inline-block;
             box-sizing: border-box;
         }
 
+
         /* Estilos adicionais para alinhar o formulário no centro */
         #formCard {
-            margin: 0 auto;
+            margin: 30px auto;
             width: 60%;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             /* Ajuste a largura conforme necessário */
         }
 
@@ -277,15 +276,91 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
         })();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Recupera os itens do carrinho do sessionStorage
+            const carrinhoItens = JSON.parse(sessionStorage.getItem('carrinhoItens'));
+
+            // Verifica se há itens no carrinho
+            if (carrinhoItens && carrinhoItens.length > 0) {
+                // Obtém a referência à div onde os itens do carrinho serão exibidos
+                const carrinhoItensContainer = document.querySelector('.itens-comprado');
+
+                // Cria um elemento h1 para o título
+                const titulo = document.createElement("h2");
+                titulo.textContent = "Itens comprados";
+                carrinhoItensContainer.appendChild(titulo);
+
+                let totalGeral = 0; // Inicializa a variável para armazenar o total geral
+
+                // Itera sobre os itens do carrinho e cria elementos para exibição
+                carrinhoItens.forEach(item => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        <img src="${item.imagem}" alt="${item.nome}" style="width: 50px; height: 50px; margin-right: 10px;">
+                        Produto: ${item.nome} - Quantidade: ${item.quantidade} - Preço: R$ ${item.precoTotal.toFixed(2)}
+                    `;
+
+                    carrinhoItensContainer.appendChild(li);
+
+                    nomesProdutosString = `${item.nome}, `;
+                    console.log(nomesProdutosString);
+                    // Adiciona o preço total ao total geral
+                    totalGeral += item.precoTotal;
+                });
+
+                // Adiciona um elemento para exibir o total geral
+                const totalGeralElement = document.createElement("p");
+                totalGeralElement.textContent = `Preço Total: R$ ${totalGeral.toFixed(2)}`;
+                carrinhoItensContainer.appendChild(totalGeralElement);
+
+                // Adiciona o campo totalGeral ao formulário
+                const form = document.getElementById('formCard'); // Substitua 'seuFormulario' pelo ID do seu formulário
+                const totalGeralInput = document.createElement("input");
+                totalGeralInput.type = "hidden"; // Campo oculto
+                totalGeralInput.name = "totalGeral";
+                totalGeralInput.value = totalGeral.toFixed(2); // Valor do total como string formatada
+                form.appendChild(totalGeralInput);
+
+
+                // Ponto de depuração: Verifique se os itens estão sendo exibidos corretamente
+                console.log(carrinhoItensContainer.innerHTML);
+                console.log(totalGeralInput);
+
+            } else {
+                console.log('Nenhum item no carrinho.');
+            }
+
+            // Remove a vírgula extra no final, se houver
+            nomesProdutosString = nomesProdutosString.slice(0, -2);
+
+            // Adiciona o campo nomeProdutos ao formulário
+            const form = document.getElementById('formCard');
+            const nomesProdutosInput = document.createElement("input");
+            nomesProdutosInput.type = "hidden"; // Campo oculto
+            nomesProdutosInput.name = "nomeProdutos";
+            nomesProdutosInput.value = nomesProdutosString;
+            form.appendChild(nomesProdutosInput);
+
+        });
     </script>
 
     <footer>
         <div>
-            <p>&copy; 2023 Tech Ninja. Todos os direitos reservados.</p>
-        </div>
-        <div>
-            <a href="#">Política de Privacidade</a> |
-            <a href="#">Termos de Serviço</a>
+            <div>
+                <i class='fab fa-instagram' style='font-size:48px;'></i>
+                <i class='fab fa-facebook' style='font-size:48px;'></i>
+                <i class='fab fa-twitter' style='font-size:48px;'></i>
+            </div>
+
+            <div>
+                <a href="#">Política de Privacidade</a> |
+                <a href="#">Termos de Serviço</a>
+            </div>
+            <div>
+                <p> &copy; 2023 Tech Ninja. Todos os direitos reservados. </p>
+            </div>
+
+
         </div>
     </footer>
 </body>

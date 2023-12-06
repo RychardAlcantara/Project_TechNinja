@@ -39,7 +39,7 @@
     background-color: #fefefe;
     margin: 5% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: none;
     width: 30%;
 }
 
@@ -78,14 +78,20 @@ input {
 }
 
 #id01 button {
-    background-color: #4CAF50;
+    background-color: #004AAD;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     width: 100%;
 }
 
 #id01 button:hover {
-    background-color: #45a049;
+    background-color: #02387e;
 }
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }

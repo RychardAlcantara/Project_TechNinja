@@ -14,9 +14,9 @@ class PayController{
         $numero = $_POST['numero'];
         $complento = $_POST['complement'];
         $DD = $_POST['DD'];
-
-        $valorEmReais = 170.40;
-
+        $valorEmReais = $_POST['totalGeral'];
+        $nomesProdutosString = $_POST['nomeProdutos'];
+        
         // Converter para centavos
         $valorEmCentavos = $valorEmReais * 100;
 
@@ -37,11 +37,12 @@ class PayController{
         $data["items"]=[
             [
                 "reference_id"=> "referencia do item",
-                "name"=> "nome do item",
+                "name"=> $nomesProdutosString,
                 "quantity"=> 1,
                 "unit_amount"=> $valorEmCentavos
             ]
         ];
+        
         $data["shipping"]= [
             "address"=> [
                 "street"=> $rua,
@@ -73,7 +74,7 @@ class PayController{
                     "installments"=> 1,
                     "capture"=> true,
                     "card"=> [
-                        "encrypted"=>$_POST['encriptedCard'],
+                        "encrypted"=>$_POST['encriptedCard'],   
                         "security_code"=> "123",
                         "holder"=> [
                             "name"=> "Jose da Silva"
@@ -83,6 +84,7 @@ class PayController{
                 ]
             ]
         ];
+       
 
         $jsonData = json_encode($data);
 
@@ -99,16 +101,19 @@ class PayController{
         $retorno = curl_exec($curl);
         curl_close($curl);
 
+        
        $response = json_decode($retorno, true);
-
+       
         // Check if the payment status is PAID
-        if(isset($response['charges'][0]['status']) && $response['charges'][0]['status'] == 'PAID') {
+        if(isset($response['charges'][0]['status']) && $response['charges'][0]['status'] == 'PAID')  {
             // Redirect to success modal or perform other actions
             header('Location: ../pages/modalSucess.php');
             exit();
         } else {
+            var_dump($response);
+            var_dump($nomesProdutosString);
             // Handle other cases or display an error message
-            header('Location: ../pages/modalError.php');
+           //header('Location: ../pages/modalError.php');
             exit();
         }
     }
@@ -116,9 +121,3 @@ class PayController{
 
 $obj = new PayController();
 ?>
-
-
-
-
-
-

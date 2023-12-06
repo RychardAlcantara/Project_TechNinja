@@ -78,7 +78,7 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                 <?php
                 if (isset($_SESSION['id'])) {
                     // Se o usuário estiver logado, exiba a mensagem de boas-vindas e a opção de sair
-                    echo "Bem vindo ao Painel,<b> " . $_SESSION['nome'] . "</b>.";
+                    echo "<i class='fas fa-user-alt'></i><br><b> " . $_SESSION['nome'] . "</b>.";
                     echo "<p><a href='logout.php'>Sair</a></p>";
                 } else {
                     // Se o usuário não estiver logado, exiba a opção de login e cadastro
@@ -93,20 +93,7 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                 <div class="cart-counter" id="contador-carrinho">0</div>
             </div>
         </div>
-
-
     </header>
-    <div class="custom-header-2">
-        <a href="">
-            <h3>HOME</h3>
-        </a>
-        <a href="">
-            <h3>PRODUTOS</h3>
-        </a>
-        <a href="">
-            <h3>SUPORTE</h3>
-        </a>
-    </div>
 
     <main>
         <div class="banner">
@@ -119,8 +106,9 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
             <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next" onclick="changeSlide(1)">&#10095;</a>
         </div>
+
         <div class="title-product">
-            <h1>Catalogo de produtos</h1>
+            <h1>Produtos em Destaque</h1>
         </div>
 
 
@@ -224,16 +212,26 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
                 }
 
                 #id01 button {
-                    background-color: #4CAF50;
+                    background-color: #004AAD;
                     color: white;
-                    padding: 10px;
+                    padding: 10px 20px;
                     border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    width: 100%;
+                }
+                #id02 button {
+                    background-color: #004AAD;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
                     cursor: pointer;
                     width: 100%;
                 }
 
                 #id01 button:hover {
-                    background-color: #45a049;
+                    background-color: #005AAD;
                 }
 
                 #modal {
@@ -359,9 +357,11 @@ if (isset($_POST['usuario_email']) && isset($_POST['senha1'])) {
         finalizarPedidoButton.addEventListener('click', function(event) {
             // Verificar se o carrinho não está vazio
             if (carrinhoItens.innerText == 0) {
+
                 alert('Seu carrinho está vazio. Adicione itens antes de finalizar a compra.');
                 event.preventDefault(); // Impede o envio do formulário se o carrinho estiver vazio
             } else {
+                localStorage.setItem('carrinhoItens', JSON.stringify(carrinhoItens));
                 // Redirecionar o usuário para a página de checkout.php
                 window.location.href = 'formCard.php';
             }
